@@ -38,7 +38,7 @@ function objToSql(ob) {
 var orm = {
     //      * `selectAll()`
     all: function(tableInput, cb){
-        var queryString = 'SELECT * FROM' + tableInput + ";";
+        var queryString = 'SELECT * FROM ' + tableInput + ";";
         connection.query(queryString, function(error, result){
             if (error){
                 throw error
@@ -86,3 +86,5 @@ var orm = {
         });
       }
 }
+
+module.exports = orm;
