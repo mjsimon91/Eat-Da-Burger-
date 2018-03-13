@@ -7,13 +7,13 @@ var burger = {
             cb(results);
         })
     },
-    create: function(cb){
-        orm.create("burgers", function(results){
+    create: function(burgerName, devoured, cb){
+        orm.create(burgerName, devoured, function(results){
             cb(results);
         })
     },
-    update: function(cb) {
-        orm.update("burgers", function(results){
+    update: function(id, devoured, cb) {
+        orm.update(id, devoured, function(results){
             cb(results);
         })
     }

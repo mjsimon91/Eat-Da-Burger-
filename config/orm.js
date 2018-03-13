@@ -9,7 +9,7 @@ function displayQuestionMarks(num){
     for (let i = 0; i < num.length; i++) {
         array.push("?");
 
-        return array.toString();     
+        return array.toString();
     }
 }
 
@@ -29,7 +29,7 @@ function objToSql(ob) {
         arr.push(key + "=" + value);
       }
     }
-  
+
     // translate array of strings to a single comma-separated string
     return arr.toString();
   }
@@ -47,42 +47,31 @@ var orm = {
         });
     },
     //      * `insertOne()`
-    create: function(table, cols, vals, cb) {
-        var queryString = "INSERT INTO " + table;
-    
-        queryString += " (";
-        queryString += cols.toString();
-        queryString += ") ";
-        queryString += "VALUES (";
-        queryString += printQuestionMarks(vals.length);
-        queryString += ") ";
-    
+    create: function(burgerName, devoured, callback) {
+      var queryString = "INSERT INTO burgers(burgerName, devoured) VALUES(?,?)";
+
         console.log(queryString);
-    
-        connection.query(queryString, vals, function(err, result) {
+        console.log(burgerName)
+
+        connection.query(queryString, [burgerName, devoured], function(err, result) {
           if (err) {
             throw err;
           }
-    
-          cb(result);
+
+          // callback(result);
         });
       },
     //      * `updateOne()`
-    update: function(table, objColVals, condition, cb) {
-        var queryString = "UPDATE " + table;
-    
-        queryString += " SET ";
-        queryString += objToSql(objColVals);
-        queryString += " WHERE ";
-        queryString += condition;
-    
+    update: function(burger, callback) {
+        var queryString = 'UPDATE burgers Set devoured = 1 WHERE id = ?';
         console.log(queryString);
-        connection.query(queryString, function(err, result) {
+        console.log(burger)
+        var burgerID = burger.id;
+        console.log('burgerID ' + burgerID);
+        connection.query(queryString,[burger.id], function(err, result) {
           if (err) {
             throw err;
           }
-    
-          cb(result);
         });
       }
 }

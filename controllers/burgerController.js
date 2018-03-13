@@ -1,10 +1,11 @@
-//Dependencies 
+//Dependencies
 var express = require('express');
+var router = express.Router();
 var burger = require('../models/burger.js')
 
-var router = express.Router();
 
-//Create all of my routes 
+
+//Create all of my routes
 
 //get
 router.get('/', function(req,res){
@@ -13,26 +14,28 @@ router.get('/', function(req,res){
             burgers: data
         };
         console.log(burgerData);
-        
+        res.render("index",burgerData)
     })
 })
 
 //post
 router.post('/api/burger', function(req, res){
-    burger.create({
-        burgerName:req.body.burgerName,
-        devoured: req.body.devoured
-    }).then(function(results){
-        res.end();
+  console.log('body ');
+  console.log(req.body);
+    burger.create(req.body.burgerName, req.body.devoured, function(results){
+        res.json({ id: results.id });
     })
 })
 
 //update
 router.put('/api/burger/:id', function(req,res){
-    var state = "id= " + req.params.id 
+    var state = "id= " + req.params.id
+    console.log('state ' + state);
+    console.log(req.body.devoured);
     burger.update({
+        id: req.body.id,
         devoured: req.body.devoured
-    }, 
+    },
         state, function(results){
         //find out if any rows have changed
         if (results.changedRows === 0){

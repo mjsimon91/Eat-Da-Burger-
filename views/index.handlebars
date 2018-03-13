@@ -1,0 +1,59 @@
+{{!-- Adding an Eat Da Burger Header --}}
+<!-- Image and text -->
+<nav class="navbar navbar-light bg-light">
+  <a class="navbar-brand" href="#">
+    <img src="/assets/brand/bootstrap-solid.svg" width="30" height="30" class="d-inline-block align-top" alt="">
+    Eat Da Burger!
+  </a>
+</nav>
+
+{{!-- Adding a form to collect Burger --}}
+<div class="container">
+   <form>
+       <div class="form-group">
+            <label>Build your Burger</label>
+            <input type="text" class="form-control" id="burgerInput" placeholder="Add your burger description">
+        </div>
+        <button type="submit" class="btn btn-primary" id="submit">Submit</button>
+   </form>
+</div>
+
+{{!-- Adding a container for all burgers --}}
+<div class="container">
+    <div class="row">
+
+        {{!-- Creating the div that will hold all burgers which have not been devoured --}}
+        <div class="col-lg-5 col-md-5 col-sm-12" id="deliveredBurgers">
+            <ul>
+                {{#each burgers}}
+                    {{#unless devoured}}
+                        <li>
+                            {{burgerName}}
+                            <button type="button" class="changeStatus btn-sm btn btn-danger" data-id="{{id}}" data-newDevoured="{{devoured}}">
+                                {{#if devoured}}{{else}}DEVOUR{{/if}}
+                            </button>
+                        </li>
+                    {{/unless}}
+                {{/each}}
+            </ul>
+        </div>
+
+
+        {{!-- Add the div that will hold the devoured burgers --}}
+        <ul>
+            {{#each burgers}}
+                {{#if devoured}}
+                    <li>
+                        {{burgerName}}
+                    </li>
+                {{/if}}
+            {{/each}}
+        </ul>
+        <div class="col-lg-5 col-md-5 col-sm-12" id="devouredBurgers">
+
+        </div>
+
+
+    </div>
+
+</div>
